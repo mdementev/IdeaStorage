@@ -12,7 +12,7 @@
 
     using log4net;
 
-    public sealed class NodeManager
+    public sealed class NodeManager : INodeManager
     {
         /// <summary>
         /// The log.
