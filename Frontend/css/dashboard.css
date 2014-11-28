@@ -201,8 +201,54 @@ html {
   margin-right: 41px;
 }
 
+#panel-newnote{
+  margin-left: 160px;
+  margin-right: 300px;
+}
+
 .glyphicon-plus{
   font-size: 1.2em;
 }
 
+#nodeContainer{
+  margin-top: 21px;
+}
 
+#newnote{
+  height: 50px;
+}
+
+#title{
+  width: 500px;
+  margin: 10px 0 10px 56px;
+}
+
+#tags{
+  width: 500px;
+  margin: 10px 0 10px 52px;
+}
+
+#description{
+  width: 500px;
+  margin-left: 5px;
+}
+
+.panel-default{
+  border-radius: 2px;
+}
+
+#editor {overflow:scroll; max-height:300px}
+
+#description-label{
+  vertical-align: top;
+  padding-top: 10px;
+}
+
+#createNote{
+  margin-left: 91px;
+}
+
+#cancelNote{
+  float: right;
+  margin-left: 10px;
+}

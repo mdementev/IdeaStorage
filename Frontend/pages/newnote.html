@@ -21,4 +21,29 @@
       </ul>
     </div>
 </div>
+    <div class="container" id="nodeContainer">
+        <div class="panel panel-default" id="panel-newnote">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create Note</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline">
+                    <label for="title" class="control-label">Title</label>
+                    <input id="title" class="form-control">
+                </form>
+                <form class="form-inline">
+                    <label for="description" id="description-label" class="control-label">Description</label>
+                    <textarea id="description" rows="12" class="form-control">
+                    </textarea>
+                </form>
+                <form class="form-inline">
+                    <label for="tags" class="control-label">Tags</label>
+                    <input id="tags" class="form-control" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput">
+                </form>
+                <button id="createNote" type="button" class="btn btn-primary" ng-click="createNote()">Create</button>
+                <button id="cancelNote" type="button" class="btn btn-default" ui-sref="dashboard">Cancel</button>
+
+            </div>
+        </div>
+    </div>
 </div>

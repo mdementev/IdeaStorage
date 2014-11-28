@@ -17,7 +17,7 @@ ideaStorage.config(function($stateProvider, $httpProvider) {
 		.state('newnote', {
 			url: '/dashboard/newnote',
 			templateUrl: 'pages/newnote.html',
-			controller: 'loginController'
+			controller: 'newnoteController'
 		})
 });
 
@@ -90,12 +90,15 @@ ideaStorage.controller('dashboardController', function($scope, $http, $window, $
 
 });
 
-ideaStorage.controller('newnote', function($scope, $http, $window, $state) {
+ideaStorage.controller('newnoteController', function($scope, $http, $window, $state) {
 	var retrievedObject = localStorage.getItem('userData');
 	var obj = JSON.parse(retrievedObject);
 	$scope.fname = obj.FirstName;
 	$scope.sname = obj.SecondName;
+
+
 });
+
 
 function getUser(){
 	var user = {"Email": localStorage.getItem("Email"), "Password": localStorage.getItem("Password")};
