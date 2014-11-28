@@ -7,17 +7,6 @@
     /// </summary>
     public class Tag
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Tag"/> class.
-        /// </summary>
-        public Tag()
-        {
-            this.TagSets = new List<TagSet>();
-        }
-
-        #endregion
 
         #region Public Properties
 
@@ -33,14 +22,6 @@
         /// Gets or sets the tag id.
         /// </summary>
         public int TagId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tag sets which bind tag to nodes.
-        /// </summary>
-        /// <value>
-        /// The tag sets which bind tag to nodes.
-        /// </value>
-        public List<TagSet> TagSets { get; set; }
 
         #endregion
 

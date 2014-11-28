@@ -65,10 +65,6 @@
             }
 
             Tag model = new Tag { TagId = tag.TagId, Name = tag.Name };
-            foreach (TAGSET tagset in tag.TAGSETS)
-            {
-                model.TagSets.Add(tagset.ToModel());
-            }
 
             return model;
         }

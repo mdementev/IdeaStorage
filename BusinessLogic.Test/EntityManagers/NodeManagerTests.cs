@@ -1,14 +1,9 @@
 ﻿namespace BusinessLogic.Test.EntityManagers
 {
     using System;
-    using System.Security.Authentication;
+    using System.Collections.Generic;
 
-    using BusinessLogic.Authorization;
-    using BusinessLogic.Cryptography;
     using BusinessLogic.EntityManagers;
-    using BusinessLogic.Exceptions;
-
-    using FluentValidation;
 
     using IdeaStorage.EntriesModel.Entries;
 
@@ -18,7 +13,6 @@
 
     public class NodeManagerTests : DatabaseTestFixture
     {
-
         [Test]
         public void CreateNode_ValidNode_Success()
         {
@@ -41,10 +35,25 @@
                 Modified = DateTime.Now,
                 OwnerId = userId,
                 Text = "text",
-                Title = "title"
+                Title = "title",
+                Tags = new List<Tag>{ new Tag { Name = "Sample tag"} }
             };
             NodeManager s1 = new NodeManager();
+
             s1.CreateNode(node);
+
+            Node node2 = new Node
+            {
+                Created = DateTime.Now,
+                IsDeleted = false,
+                Modified = DateTime.Now,
+                OwnerId = userId,
+                Text = "text2",
+                Title = "title2",
+                Tags = new List<Tag> { new Tag { Name = "Sample tag" }, new Tag { Name = "Sample tag 1" } }
+            };
+
+            s1.CreateNode(node2);
         }
     }
 }

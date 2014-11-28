@@ -44,7 +44,7 @@
         {
             using (var context = new IdeaStorageEntities())
             {
-                Tag tag = context.TAGS.SingleOrDefault(t => t.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)).ToModel();
+                Tag tag = context.TAGS.SingleOrDefault(t => t.Name.Equals(name)).ToModel();
                 Log.DebugFormat("Found tag:'{0}'", tag);
                 return tag;
             }

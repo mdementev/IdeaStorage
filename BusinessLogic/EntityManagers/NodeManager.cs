@@ -21,12 +21,11 @@
 
         public Node CreateNode(Node newNode)
         {
+            NodeValidator nodeValidator = new NodeValidator();
+            nodeValidator.Validate(newNode);
+
             using (var context = new IdeaStorageEntities())
             {
-                NodeValidator nodeValidator = new NodeValidator();
-                nodeValidator.Validate(newNode);
-
-
                 NODE newDbNode = new NODE
                 {
                     Created = newNode.Created,
@@ -36,6 +35,13 @@
                     Text = newNode.Text,
                     Title = newNode.Title
                 };
+
+                TagManager tagManager = new TagManager();
+                foreach (Tag tag in newNode.Tags)
+                {
+                    tag.TagId = tagManager.CreateTag(tag).TagId;
+                    context.TAGSETS.Add(new TAGSET { NodeId = newDbNode.NodeId, TagId = tag.TagId });
+                }
 
                 context.NODES.Add(newDbNode);
                 context.SaveChanges();
