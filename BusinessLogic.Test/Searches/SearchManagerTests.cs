@@ -37,7 +37,7 @@ namespace BusinessLogic.Test.Searches
                 IsDeleted = false,
                 Modified = DateTime.Now,
                 OwnerId = userId,
-                Text = "text",
+                Text = "text12",
                 Title = "title",
                 Tags = new List<Tag> { new Tag { Name = "Simple" } }
             };
@@ -60,6 +60,8 @@ namespace BusinessLogic.Test.Searches
 
 
             SearchManager searchManager = new SearchManager();
+            var s2 = searchManager.FindNodesByString("text2 bad");
+
         }
     }
 }

@@ -80,14 +80,6 @@
         /// </value>
         public string Title { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user who create that node.
-        /// </summary>
-        /// <value>
-        /// the user who create that node.
-        /// </value>
-        public User User { get; set; }
-
         #endregion
 
         #region Public Methods and Operators

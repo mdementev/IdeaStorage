@@ -35,8 +35,7 @@
                                  NodeId = node.NodeId, 
                                  OwnerId = node.OwnerId, 
                                  Text = node.Text, 
-                                 Title = node.Title, 
-                                 User = node.USER.ToModel()
+                                 Title = node.Title
                              };
 
             foreach (TAGSET tagset in node.TAGSETS)

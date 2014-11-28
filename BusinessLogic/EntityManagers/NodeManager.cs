@@ -1,6 +1,5 @@
 ﻿namespace BusinessLogic.EntityManagers
 {
-    using System;
     using System.Reflection;
 
     using BusinessLogic.Mappers;
