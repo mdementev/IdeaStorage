@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -102,6 +103,10 @@
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
       <Project>{2F07C08A-DD92-412A-B10B-EC239301B068}</Project>
       <Name>BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IdeaStorage.EntriesModel\IdeaStorage.EntriesModel.csproj">
+      <Project>{036DA0C4-E2C2-4ED2-89D0-0E0C3C55D54F}</Project>
+      <Name>IdeaStorage.EntriesModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
