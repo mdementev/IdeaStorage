@@ -14,6 +14,11 @@ ideaStorage.config(function($stateProvider, $httpProvider) {
       		templateUrl: 'pages/signin.html',
 			controller: 'loginController'
     	})
+		.state('newnote', {
+			url: '/dashboard/newnote',
+			templateUrl: 'pages/newnote.html',
+			controller: 'loginController'
+		})
 });
 
 ideaStorage.controller('loginController', function($scope, $http, $window, $state) {
@@ -83,6 +88,13 @@ ideaStorage.controller('dashboardController', function($scope, $http, $window, $
 		$nodeContainer.append(pDefault);
 	});
 
+});
+
+ideaStorage.controller('newnote', function($scope, $http, $window, $state) {
+	var retrievedObject = localStorage.getItem('userData');
+	var obj = JSON.parse(retrievedObject);
+	$scope.fname = obj.FirstName;
+	$scope.sname = obj.SecondName;
 });
 
 function getUser(){
