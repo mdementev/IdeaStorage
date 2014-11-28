@@ -59,6 +59,28 @@
             }
         }
 
+        public void DeleteNode(int id)
+        {
+            Log.DebugFormat("Begin DeleteNode(id:'{0}')", id);
+
+            using (IdeaStorageEntities context = new IdeaStorageEntities())
+            {
+                NODE node = context.NODES.SingleOrDefault(u => u.NodeId == id);
+
+                if (node == null)
+                {
+                    string message = string.Format("Node with id:'{0}' doesn't exist in data base.", id);
+                    Log.Debug(message);
+                    throw new EntityDoesNotExistException(message);
+                }
+
+                node.IsDeleted = true;
+                context.SaveChanges();
+            }
+
+            Log.DebugFormat("Node with ID:'{0}' deleted", id);
+        }
+
         public void UpdateNode(Node node)
         {
             NodeValidator nodeValidator = new NodeValidator();

@@ -8,6 +8,8 @@
 
         Node CreateNode(Node newNode);
 
+        void DeleteNode(int id);
+
         void UpdateNode(Node node);
 
         #endregion
