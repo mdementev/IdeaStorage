@@ -1,5 +1,7 @@
 ﻿namespace BusinessLogic.Authorization
 {
+    using System.Security.Principal;
+
     using BusinessLogic.Cryptography;
     using BusinessLogic.EntityManagers;
 
@@ -18,7 +20,7 @@
         /// <param name="email">The user's email.</param>
         /// <param name="password">The user's password.</param>
         /// <returns>An <see cref="User"/> instance if user's credentials are valid, otherwise <c>null</c>.</returns>
-        public User ValidateUser(string email, string password)
+        public IPrincipal ValidateUser(string email, string password)
         {
             IUserManager userManager = new UserManager();
 
@@ -33,7 +35,8 @@
 
                 if (cryptographyManager.HashPassword(password, salt).Equals(hash))
                 {
-                    return user;
+                    GenericIdentity identity = new GenericIdentity(email);
+                    return new GenericPrincipal(identity, new[] { string.Empty });
                 }
             }
 

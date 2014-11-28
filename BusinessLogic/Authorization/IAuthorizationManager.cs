@@ -1,5 +1,7 @@
 ﻿namespace BusinessLogic.Authorization
 {
+    using System.Security.Principal;
+
     using IdeaStorage.EntriesModel.Entries;
 
     /// <summary>
@@ -15,7 +17,7 @@
         /// <param name="email">The user's email.</param>
         /// <param name="password">The user's password.</param>
         /// <returns>An <see cref="User"/> instance if user's credentials are valid, otherwise <c>null</c>.</returns>
-        User ValidateUser(string email, string password);
+        IPrincipal ValidateUser(string email, string password);
 
         #endregion
     }
