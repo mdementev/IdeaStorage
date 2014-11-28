@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IdeaStorageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="NODES">
+          <Key>
+            <PropertyRef Name="NodeId" />
+          </Key>
+          <Property Name="NodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Modified" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAGS">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAGSETS">
+          <Key>
+            <PropertyRef Name="TagSetId" />
+          </Key>
+          <Property Name="TagSetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NodeId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="44" Nullable="false" />
+          <Property Name="Salt" Type="nchar" MaxLength="16" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_NODES_USERS">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="NODES" Type="Self.NODES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="NODES">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAGSETS_NODES">
+          <End Role="NODES" Type="Self.NODES" Multiplicity="1" />
+          <End Role="TAGSETS" Type="Self.TAGSETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NODES">
+              <PropertyRef Name="NodeId" />
+            </Principal>
+            <Dependent Role="TAGSETS">
+              <PropertyRef Name="NodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAGSETS_TAGS">
+          <End Role="TAGS" Type="Self.TAGS" Multiplicity="1" />
+          <End Role="TAGSETS" Type="Self.TAGSETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAGS">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="TAGSETS">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IdeaStorageModelStoreContainer">
+          <EntitySet Name="NODES" EntityType="Self.NODES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAGS" EntityType="Self.TAGS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAGSETS" EntityType="Self.TAGSETS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_NODES_USERS" Association="Self.FK_NODES_USERS">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="NODES" EntitySet="NODES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAGSETS_NODES" Association="Self.FK_TAGSETS_NODES">
+            <End Role="NODES" EntitySet="NODES" />
+            <End Role="TAGSETS" EntitySet="TAGSETS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAGSETS_TAGS" Association="Self.FK_TAGSETS_TAGS">
+            <End Role="TAGS" EntitySet="TAGS" />
+            <End Role="TAGSETS" EntitySet="TAGSETS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IdeaStorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="NODE">
+          <Key>
+            <PropertyRef Name="NodeId" />
+          </Key>
+          <Property Name="NodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="USER" Relationship="Self.FK_NODES_USERS" FromRole="NODES" ToRole="USERS" />
+          <NavigationProperty Name="TAGSETS" Relationship="Self.FK_TAGSETS_NODES" FromRole="NODES" ToRole="TAGSETS" />
+        </EntityType>
+        <EntityType Name="TAG">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TAGSETS" Relationship="Self.FK_TAGSETS_TAGS" FromRole="TAGS" ToRole="TAGSETS" />
+        </EntityType>
+        <EntityType Name="TAGSET">
+          <Key>
+            <PropertyRef Name="TagSetId" />
+          </Key>
+          <Property Name="TagSetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NodeId" Type="Int32" Nullable="false" />
+          <Property Name="TagId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NODE" Relationship="Self.FK_TAGSETS_NODES" FromRole="TAGSETS" ToRole="NODES" />
+          <NavigationProperty Name="TAG" Relationship="Self.FK_TAGSETS_TAGS" FromRole="TAGSETS" ToRole="TAGS" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="44" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="16" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="NODES" Relationship="Self.FK_NODES_USERS" FromRole="USERS" ToRole="NODES" />
+        </EntityType>
+        <Association Name="FK_NODES_USERS">
+          <End Role="USERS" Type="Self.USER" Multiplicity="1" />
+          <End Role="NODES" Type="Self.NODE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="NODES">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAGSETS_NODES">
+          <End Role="NODES" Type="Self.NODE" Multiplicity="1" />
+          <End Role="TAGSETS" Type="Self.TAGSET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NODES">
+              <PropertyRef Name="NodeId" />
+            </Principal>
+            <Dependent Role="TAGSETS">
+              <PropertyRef Name="NodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAGSETS_TAGS">
+          <End Role="TAGS" Type="Self.TAG" Multiplicity="1" />
+          <End Role="TAGSETS" Type="Self.TAGSET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAGS">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="TAGSETS">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IdeaStorageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="NODES" EntityType="Self.NODE" />
+          <EntitySet Name="TAGS" EntityType="Self.TAG" />
+          <EntitySet Name="TAGSETS" EntityType="Self.TAGSET" />
+          <EntitySet Name="USERS" EntityType="Self.USER" />
+          <AssociationSet Name="FK_NODES_USERS" Association="Self.FK_NODES_USERS">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="NODES" EntitySet="NODES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAGSETS_NODES" Association="Self.FK_TAGSETS_NODES">
+            <End Role="NODES" EntitySet="NODES" />
+            <End Role="TAGSETS" EntitySet="TAGSETS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAGSETS_TAGS" Association="Self.FK_TAGSETS_TAGS">
+            <End Role="TAGS" EntitySet="TAGS" />
+            <End Role="TAGSETS" EntitySet="TAGSETS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IdeaStorageModelStoreContainer" CdmEntityContainer="IdeaStorageEntities">
+          <EntitySetMapping Name="NODES">
+            <EntityTypeMapping TypeName="IdeaStorageModel.NODE">
+              <MappingFragment StoreEntitySet="NODES">
+                <ScalarProperty Name="NodeId" ColumnName="NodeId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAGS">
+            <EntityTypeMapping TypeName="IdeaStorageModel.TAG">
+              <MappingFragment StoreEntitySet="TAGS">
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAGSETS">
+            <EntityTypeMapping TypeName="IdeaStorageModel.TAGSET">
+              <MappingFragment StoreEntitySet="TAGSETS">
+                <ScalarProperty Name="TagSetId" ColumnName="TagSetId" />
+                <ScalarProperty Name="NodeId" ColumnName="NodeId" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="IdeaStorageModel.USER">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
