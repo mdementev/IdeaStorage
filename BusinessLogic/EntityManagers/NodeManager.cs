@@ -32,8 +32,12 @@
 
                 context.NODES.Add(newDbNode);
                 context.SaveChanges();
+
+                return newDbNode.NodeId;
             }
         }
+
+
 
     }
 }
