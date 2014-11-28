@@ -122,7 +122,7 @@ namespace BusinessLogic.Test.Searches
 
 
             SearchManager searchManager = new SearchManager();
-            var s2 = searchManager.FindNodesByTags("Goob");
+            var s2 = searchManager.FindNodesByTags("Good2");
 
         }
     }

@@ -53,17 +53,23 @@
             // Choose the relative strength of the comparison - is it almost exactly equal? or is it just close?
             FuzzyStringComparisonTolerance tolerance = FuzzyStringComparisonTolerance.Normal;
 
-            List<string> searchTermList = searchTerm.Split(',').Select(a => a.Trim()).ToList();
+            List<string> searchTermList = new List<string>();
 
             List<TAG> searchTagsList = new List<TAG>();
             List<NODE> dbNodesList = new List<NODE>();
             using (IdeaStorageEntities context = new IdeaStorageEntities())
             {
                 List<TAG> allTagList = context.TAGS.Select(t => t).ToList();
-                foreach (string tagString in searchTermList)
+
+                if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrWhiteSpace(searchTerm))
                 {
-                    searchTagsList.AddRange(
-                        allTagList.Where(t => t.Name.ApproximatelyEquals(tagString, options, tolerance)));
+                    searchTermList = searchTerm.Split(',').Select(a => a.Trim()).ToList();
+
+                    foreach (string tagString in searchTermList)
+                    {
+                        searchTagsList.AddRange(
+                            allTagList.Where(t => t.Name.ApproximatelyEquals(tagString, options, tolerance)));
+                    }
                 }
 
                 List<TAGSET> dbTagSets = new List<TAGSET>();
