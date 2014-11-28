@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="Authorization\AuthorizationManager.cs" />
     <Compile Include="Authorization\IAuthorizationManager.cs" />
+    <Compile Include="EntityManagers\INodeManager.cs" />
+    <Compile Include="EntityManagers\ITagManager.cs" />
     <Compile Include="EntityManagers\NodeManager.cs" />
     <Compile Include="EntityManagers\TagManager.cs" />
     <Compile Include="Exceptions\DuplicateEntityException.cs" />
