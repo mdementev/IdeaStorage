@@ -60,7 +60,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #222222;
-    border-color: 1px #121212;
+    border-color: #121212;
   }
     .nav-sidebar li a:focus {
         outline: none;
@@ -82,8 +82,8 @@ body {
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
-  color: ##222222;
-  background-color: ##222222;
+  color: #222222;
+  background-color: #222222;
 }
 
 .nav-sidebar li a:hover,
