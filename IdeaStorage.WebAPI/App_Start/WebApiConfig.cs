@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
-
-namespace IdeaStorage.WebAPI
+﻿namespace IdeaStorage.WebAPI
 {
+    using System.Web.Http;
+
+    using IdeaStorage.WebAPI.Filters;
+
     public static class WebApiConfig
     {
+        #region Public Methods and Operators
+
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            config.EnableCors();
+
+            config.Filters.Add(new IdeaStorageAuthorizationFilterAttribute());
         }
+
+        #endregion
     }
 }

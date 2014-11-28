@@ -66,6 +66,25 @@
         }
 
         /// <summary>
+        /// Validates if user exist in the system and creates user session.
+        /// </summary>
+        /// <param name="email">The user's email.</param>
+        /// <param name="password">The user's password.</param>
+        /// <returns>
+        /// The instance of <see cref="HttpResponseMessage" /> class, which represents response of Login operation.
+        /// </returns>
+        /// <exception cref="System.Security.Authentication.AuthenticationException">Invalid user name or password.</exception>
+        [AllowAnonymous]
+        [Route("test")]
+        [HttpPost]
+        public HttpResponseMessage Test(string email)
+        {
+            HttpResponseMessage responseMessage = this.Request.CreateResponse(HttpStatusCode.OK);
+
+            return responseMessage;
+        }
+
+        /// <summary>
         /// Logout user from application.
         /// </summary>
         /// <returns>The instance of <see cref="HttpResponseMessage" /> class, which represents response of Logout operation.</returns>
