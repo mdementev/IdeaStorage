@@ -60,7 +60,7 @@ namespace BusinessLogic.Test.Searches
 
 
             SearchManager searchManager = new SearchManager();
-            var s2 = searchManager.FindNodesByString("text2 bad");
+            var s2 = searchManager.FindNodesByString("text2 bad", true);
 
         }
     }

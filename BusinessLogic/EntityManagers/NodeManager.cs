@@ -37,11 +37,11 @@
             {
                 NODE newDbNode = new NODE
                                      {
-                                         Created = newNode.Created, 
-                                         IsDeleted = newNode.IsDeleted, 
-                                         Modified = newNode.Modified, 
-                                         OwnerId = newNode.OwnerId, 
-                                         Text = newNode.Text, 
+                                         Created = newNode.Created,
+                                         IsDeleted = newNode.IsDeleted,
+                                         Modified = newNode.Modified,
+                                         OwnerId = newNode.OwnerId,
+                                         Text = newNode.Text,
                                          Title = newNode.Title
                                      };
 
@@ -96,3 +96,4 @@
 
         #endregion
     }
+}
