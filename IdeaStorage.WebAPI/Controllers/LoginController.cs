@@ -60,7 +60,7 @@
             }
             catch
             {
-                responseMessage = this.Request.CreateResponse(HttpStatusCode.Unauthorized);
+                responseMessage = this.Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Invalid user name or password.");
             }
 
             return responseMessage;
