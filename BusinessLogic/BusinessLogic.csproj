@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Authorization\AuthorizationManager.cs" />
     <Compile Include="Authorization\IAuthorizationManager.cs" />
+    <Compile Include="EntityManagers\NodeManager.cs" />
     <Compile Include="Exceptions\DuplicateEntityException.cs" />
     <Compile Include="Exceptions\EntityDoesNotExistException.cs" />
     <Compile Include="Mappers\CommonMapper.cs" />

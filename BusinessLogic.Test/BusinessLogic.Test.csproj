@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\AuthorizationManagerTests.cs" />
+    <Compile Include="EntityManagers\NodeManagerTests.cs" />
     <Compile Include="EntityManagers\UserManagerTests.cs" />
     <Compile Include="Cryptography\CryptographyManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,6 +67,7 @@
   <ItemGroup>
     <None Include="App.config">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
