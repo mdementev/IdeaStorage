@@ -4,6 +4,8 @@
     using System.Linq;
     using System.Net.Sockets;
 
+    using BusinessLogic.Mappers;
+
     using IdeaSorage.DataModel;
 
     using IdeaStorage.EntriesModel.Entries;
@@ -12,21 +14,25 @@
     {
         public List<Node> FindNodesByString(string searchTerm)
         {
-            List<Node> result = new List<Node>();
             List<string> searchTermList = searchTerm.Split().ToList();
-
+            List<NODE> dbNodesList = new List<NODE>();
 
             using (IdeaStorageEntities context = new IdeaStorageEntities())
             {
-                var ress = from r in context.NODES
-                    select r;
-            }
-
-
-            for (int a = 0; a < searchTermList.Count; a++)
-            {
                 
+                foreach (string term in searchTermList)
+                {
+                    dbNodesList.AddRange(context.NODES.Where(n => n.Text.Contains(term)));
+                }
+
+                List<Node> result = (context.NODES.GroupBy(n => n, n => n.NodeId)
+                    .Select(g => new { g, count = g.Count() })
+                    .OrderByDescending(@t => @t.count)
+                    .Select(@t => @t.g.Key.ToModel())).ToList();
+
+                return result;
             }
+
         } 
     }
 }

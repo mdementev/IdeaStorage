@@ -14,7 +14,7 @@
 
     using log4net;
 
-    public sealed class TagManager : ITagManager
+    public sealed class TagManager 
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
