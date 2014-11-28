@@ -1,12 +1,9 @@
 ﻿namespace BusinessLogic.Searches
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     using BusinessLogic.Mappers;
-
-    using DuoVia.FuzzyStrings;
 
     using FuzzyString;
 
@@ -56,17 +53,17 @@
             // Choose the relative strength of the comparison - is it almost exactly equal? or is it just close?
             FuzzyStringComparisonTolerance tolerance = FuzzyStringComparisonTolerance.Normal;
 
-            List<string> searchTermList = searchTerm.Split(',').Select(a=> a.Trim()).ToList();
-            
+            List<string> searchTermList = searchTerm.Split(',').Select(a => a.Trim()).ToList();
+
             List<TAG> searchTagsList = new List<TAG>();
             List<NODE> dbNodesList = new List<NODE>();
-            List<TAG> allTagList = new List<TAG>();
             using (IdeaStorageEntities context = new IdeaStorageEntities())
             {
-                allTagList = context.TAGS.Select(t => t).ToList();
+                List<TAG> allTagList = context.TAGS.Select(t => t).ToList();
                 foreach (string tagString in searchTermList)
                 {
-                    searchTagsList.AddRange(allTagList.Where(t => t.Name.ApproximatelyEquals(tagString, options, tolerance)));
+                    searchTagsList.AddRange(
+                        allTagList.Where(t => t.Name.ApproximatelyEquals(tagString, options, tolerance)));
                 }
 
                 List<TAGSET> dbTagSets = new List<TAGSET>();
@@ -90,7 +87,7 @@
                 return result;
             }
 
-        } 
+        }
 
     }
 }
