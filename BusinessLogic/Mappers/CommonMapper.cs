@@ -1,5 +1,9 @@
 ﻿namespace BusinessLogic.Mappers
 {
+    using System.Collections.Generic;
+
+    using BusinessLogic.EntityManagers;
+
     using IdeaSorage.DataModel;
 
     using IdeaStorage.EntriesModel.Entries;
@@ -35,14 +39,17 @@
                                  NodeId = node.NodeId, 
                                  OwnerId = node.OwnerId, 
                                  Text = node.Text, 
-                                 Title = node.Title
+                                 Title = node.Title,
+                                 Tags = new List<Tag>()
                              };
 
-            foreach (TAGSET tagset in node.TAGSETS)
+            TagManager tagManager = new TagManager();
+            foreach(var a in node.TAGSETS)      
             {
-                //TODO: should be updated
-                //model.Tags.Add(TagManager.GetTegById(tagset.TagId));
+                model.Tags.Add(tagManager.GetTagById(a.TagId));
             }
+
+         
 
             return model;
         }

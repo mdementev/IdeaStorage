@@ -18,6 +18,26 @@
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        public Tag GetTagById(int id)
+        {
+            using (IdeaStorageEntities context = new IdeaStorageEntities())
+            {
+                Tag tag = context.TAGS.SingleOrDefault(u => u.TagId == id )
+                    .ToModel();
+
+                if (tag == null)
+                {
+                    string message = string.Format("Tag with id:'{0}' doesn't exist in data base.", id);
+                    Log.Debug(message);
+                    throw new EntityDoesNotExistException(message);
+                }
+
+                Log.DebugFormat("Returned: '{0}'", tag);
+
+                return tag;
+            }
+        }
+
         public Tag CreateTag(Tag tag)
         {
             Tag foundTag = this.FindTagByName(tag.Name);
