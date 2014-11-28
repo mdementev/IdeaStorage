@@ -12,37 +12,32 @@
     using IdeaStorage.EntriesModel.Entries;
     using IdeaStorage.WebAPI.Models;
 
-    /// <summary>
-    /// Contains logic for working with users in Idea Storage API.
-    /// </summary>
-    public class UserController : ApiController
+    public class NodeController : ApiController
     {
         #region Public Methods and Operators
 
-        /// <summary>
-        /// Gets the logged in user.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>The instance of <see cref="User"/></returns>
         [AllowAnonymous]
-        [Route("GetLoggedInUser")]
+        [Route("CreateNode")]
         [HttpPost]
-        public HttpResponseMessage GetLoggedInUser(LoginCredentials credentials)
+        public HttpResponseMessage CreateNode(NodeModel nodeModel)
         {
             HttpResponseMessage responseMessage;
             try
             {
                 IAuthorizationManager manager = new AuthorizationManager();
 
-                IPrincipal principal = manager.ValidateUser(credentials.Email, credentials.Password);
+                IPrincipal principal = manager.ValidateUser(nodeModel.Credentials.Email, nodeModel.Credentials.Password);
 
                 if (principal == null)
                 {
                     throw new AuthenticationException("Invalid user name or password.");
                 }
 
+                INodeManager nodeManager = new NodeManager();
+                nodeManager.CreateNode(nodeModel.Node);
+
                 IUserManager userManager = new UserManager();
-                User loggedInUser = userManager.FindUserByEmail(credentials.Email);
+                User loggedInUser = userManager.FindUserByEmail(nodeModel.Credentials.Email);
 
                 responseMessage = this.Request.CreateResponse(HttpStatusCode.OK, loggedInUser);
             }
