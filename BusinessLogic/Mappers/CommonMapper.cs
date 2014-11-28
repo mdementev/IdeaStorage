@@ -41,7 +41,8 @@
 
             foreach (TAGSET tagset in node.TAGSETS)
             {
-                model.TagSets.Add(tagset.ToModel());
+                //TODO: should be updated
+                //model.Tags.Add(TagManager.GetTegById(tagset.TagId));
             }
 
             return model;

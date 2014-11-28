@@ -3,6 +3,9 @@
     using System;
     using System.Reflection;
 
+    using BusinessLogic.Mappers;
+    using BusinessLogic.Validators;
+
     using IdeaSorage.DataModel;
 
     using IdeaStorage.EntriesModel.Entries;
@@ -16,10 +19,14 @@
         /// </summary>
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public int CreateNode(Node newNode)
+        public Node CreateNode(Node newNode)
         {
             using (var context = new IdeaStorageEntities())
             {
+                NodeValidator nodeValidator = new NodeValidator();
+                nodeValidator.Validate(newNode);
+
+
                 NODE newDbNode = new NODE
                 {
                     Created = newNode.Created,
@@ -33,7 +40,7 @@
                 context.NODES.Add(newDbNode);
                 context.SaveChanges();
 
-                return newDbNode.NodeId;
+                return newDbNode.ToModel();
             }
         }
 

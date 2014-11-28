@@ -15,7 +15,7 @@
         /// </summary>
         public Node()
         {
-            this.TagSets = new List<TagSet>();
+            this.Tags = new List<Tag>();
         }
 
         #endregion
@@ -62,7 +62,7 @@
         /// <value>
         /// The tag sets which bind note to tags.
         /// </value>
-        public List<TagSet> TagSets { get; set; }
+        public List<Tag> Tags { get; set; }
 
         /// <summary>
         /// Gets or sets the node text.
