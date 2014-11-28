@@ -11,6 +11,8 @@
 
     using BusinessLogic.Authorization;
 
+    using IdeaStorage.WebAPI.Models;
+
     /// <summary>
     /// Contains user authorization methods.
     /// </summary>
@@ -21,8 +23,7 @@
         /// <summary>
         /// Validates if user exist in the system and creates user session.
         /// </summary>
-        /// <param name="email">The user's email.</param>
-        /// <param name="password">The user's password.</param>
+        /// <param name="credentials">The credentials of the user to check.</param>
         /// <returns>
         /// The instance of <see cref="HttpResponseMessage" /> class, which represents response of Login operation.
         /// </returns>
@@ -30,14 +31,14 @@
         [AllowAnonymous]
         [Route("login")]
         [HttpPost]
-        public HttpResponseMessage Login(string email, string password)
+        public HttpResponseMessage Login(LoginCredentials credentials)
         {
             HttpResponseMessage responseMessage;
             try
             {
                 IAuthorizationManager manager = new AuthorizationManager();
 
-                IPrincipal principal = manager.ValidateUser(email, password);
+                IPrincipal principal = manager.ValidateUser(credentials.Email, credentials.Password);
 
                 if (principal == null)
                 {
@@ -77,7 +78,7 @@
         [AllowAnonymous]
         [Route("test")]
         [HttpPost]
-        public HttpResponseMessage Test(string email)
+        public HttpResponseMessage Test([FromBody] string email)
         {
             HttpResponseMessage responseMessage = this.Request.CreateResponse(HttpStatusCode.OK);
 
