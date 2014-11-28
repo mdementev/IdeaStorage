@@ -53,10 +53,8 @@
             options.Add(FuzzyStringComparisonOptions.UseLongestCommonSubstring);
             options.Add(FuzzyStringComparisonOptions.UseLevenshteinDistance);
 
-
             // Choose the relative strength of the comparison - is it almost exactly equal? or is it just close?
             FuzzyStringComparisonTolerance tolerance = FuzzyStringComparisonTolerance.Normal;
-
 
             List<string> searchTermList = searchTerm.Split(',').Select(a=> a.Trim()).ToList();
             
@@ -68,8 +66,6 @@
                 allTagList = context.TAGS.Select(t => t).ToList();
                 foreach (string tagString in searchTermList)
                 {
-
-
                     searchTagsList.AddRange(allTagList.Where(t => t.Name.ApproximatelyEquals(tagString, options, tolerance)));
                 }
 
