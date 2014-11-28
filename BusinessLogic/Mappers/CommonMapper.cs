@@ -43,13 +43,11 @@
                                  Tags = new List<Tag>()
                              };
 
-            TagManager tagManager = new TagManager();
-            foreach(var a in node.TAGSETS)      
+            ITagManager tagManager = new TagManager();
+            foreach (TAGSET tagset in node.TAGSETS)
             {
-                model.Tags.Add(tagManager.GetTagById(a.TagId));
+                model.Tags.Add(tagManager.GetTagById(tagset.TagId));
             }
-
-         
 
             return model;
         }

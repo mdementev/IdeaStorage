@@ -11,5 +11,7 @@ namespace BusinessLogic.EntityManagers
     public interface ITagManager
     {
         Tag CreateTag(Tag tag);
+
+        Tag GetTagById(int id);
     }
 }
