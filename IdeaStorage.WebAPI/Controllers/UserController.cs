@@ -13,7 +13,6 @@
     /// <summary>
     /// Contains logic for working with users in Idea Storage API.
     /// </summary>
-    [RoutePrefix("user")]
     public class UserController : ApiController
     {
         #region Public Methods and Operators
