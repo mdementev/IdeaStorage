@@ -6,6 +6,10 @@
 
     using BusinessLogic.Mappers;
 
+    using DuoVia.FuzzyStrings;
+
+    using FuzzyString;
+
     using IdeaSorage.DataModel;
 
     using IdeaStorage.EntriesModel.Entries;
@@ -39,19 +43,34 @@
             }
         }
 
-        public List<Node> FindNodesByTags(string searchTerm, bool caseSensitive = false)
+        public List<Node> FindNodesByTags(string searchTerm, bool caseSens = false)
         {
+            List<FuzzyStringComparisonOptions> options = new List<FuzzyStringComparisonOptions>();
+
+            // Choose which algorithms should weigh in for the comparison
+            options.Add(FuzzyStringComparisonOptions.UseOverlapCoefficient);
+            options.Add(FuzzyStringComparisonOptions.UseLongestCommonSubsequence);
+            options.Add(FuzzyStringComparisonOptions.UseLongestCommonSubstring);
+            options.Add(FuzzyStringComparisonOptions.UseLevenshteinDistance);
+
+
+            // Choose the relative strength of the comparison - is it almost exactly equal? or is it just close?
+            FuzzyStringComparisonTolerance tolerance = FuzzyStringComparisonTolerance.Normal;
+
+
             List<string> searchTermList = searchTerm.Split(',').Select(a=> a.Trim()).ToList();
             
             List<TAG> searchTagsList = new List<TAG>();
             List<NODE> dbNodesList = new List<NODE>();
-
+            List<TAG> allTagList = new List<TAG>();
             using (IdeaStorageEntities context = new IdeaStorageEntities())
             {
-
+                allTagList = context.TAGS.Select(t => t).ToList();
                 foreach (string tagString in searchTermList)
                 {
-                    searchTagsList.AddRange(context.TAGS.Where(t => t.Name.ToLower().Equals(tagString.ToLower())).ToList());
+
+
+                    searchTagsList.AddRange(allTagList.Where(t => t.Name.ApproximatelyEquals(tagString, options, tolerance)));
                 }
 
                 List<TAGSET> dbTagSets = new List<TAGSET>();

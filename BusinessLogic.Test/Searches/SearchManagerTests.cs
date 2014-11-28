@@ -101,7 +101,7 @@ namespace BusinessLogic.Test.Searches
                 OwnerId = userId,
                 Text = "text2",
                 Title = "title2",
-                Tags = new List<Tag> { new Tag { Name = "Bad" }, new Tag { Name = "Good" } }
+                Tags = new List<Tag> { new Tag { Name = "Bad1" }, new Tag { Name = "Good" } }
             };
 
             s1.CreateNode(node2);
@@ -115,14 +115,14 @@ namespace BusinessLogic.Test.Searches
                 OwnerId = userId,
                 Text = "text2",
                 Title = "title2",
-                Tags = new List<Tag> { new Tag { Name = "Bad" }, new Tag { Name = "Good1" } }
+                Tags = new List<Tag> { new Tag { Name = "Bad1" }, new Tag { Name = "Good1" } }
             };
 
             s1.CreateNode(node3);
 
 
             SearchManager searchManager = new SearchManager();
-            var s2 = searchManager.FindNodesByTags("simple, bad", true);
+            var s2 = searchManager.FindNodesByTags("Goob");
 
         }
     }
