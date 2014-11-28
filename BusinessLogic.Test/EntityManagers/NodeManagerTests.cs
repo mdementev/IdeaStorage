@@ -21,12 +21,7 @@
         [Test]
         public void CreateNode_ValidNode_Success()
         {
-            Node node = new Node
-            {
-                
-            }
-            NodeManager s1 = new NodeManager();
-            s1.CreateNode()
+
         }
     }
 }
