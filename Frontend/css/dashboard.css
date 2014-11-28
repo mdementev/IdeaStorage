@@ -26,6 +26,12 @@ body {
 }
 
 .navbar-default {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  border: 0;
+  color: white;
   margin-top: -51px;
 }
 
@@ -102,6 +108,10 @@ body {
 .main {
   padding: 20px;
 }
+
+span{
+  margin-right: 8px;
+}
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
@@ -175,3 +185,20 @@ html {
   -o-background-size: cover;
   background-size: cover;
 }
+
+.round{
+  border-radius: 100px;
+  margin: auto;
+  margin-top: 8px;
+  margin-right: 5px;
+  width: 32px;
+  height: 32px;
+  border: 2px solid white;
+}
+
+.panel-default{
+  margin-left: 220px;
+  margin-right: 41px;
+}
+
+
