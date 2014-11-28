@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Routing;
-
-namespace IdeaStorage.WebAPI
+﻿namespace IdeaStorage.WebAPI
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    using System;
+    using System.Web;
+    using System.Web.Http;
+
+    /// <summary>
+    /// API Service Application File.
+    /// </summary>
+    public class WebApiApplication : HttpApplication
     {
-        protected void Application_Start()
+        #region Methods
+
+        /// <summary>
+        /// Code that runs on application startup.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event.</param>
+        protected void Application_Start(object sender, EventArgs e)
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
+
+        #endregion
     }
 }
