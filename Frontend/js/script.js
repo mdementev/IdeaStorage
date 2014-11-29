@@ -33,10 +33,11 @@ ideaStorage.controller('loginController', function($scope, $http, $window, $stat
 			//dataType: "json",
 			success: function(data, textStatus, jqxhr) {
 				if (jqxhr.status == 200) {
-					$state.go('dashboard');
+
 					localStorage.setItem("Email", $('#inputEmail').val());
 					localStorage.setItem("Password", $('#inputPassword').val());
 					getUser();
+					$state.go('dashboard');
 				}
 			},
 			error: function(jqxhr, textStatus, errorThrown){
@@ -127,13 +128,13 @@ ideaStorage.controller('dashboardController', function($scope, $http, $window, $
 		var pTitle = document.createElement("h3");
 		$(pTitle).addClass("panel-title");
 		$(pTitle).text(node.Title);
-		$(pTitle).append('<button id="deleteNote" type="submit" onclick="deleteNote(this, ' + node.NodeId + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
-		$(pTitle).append('<button id="editNote" ng-click="editNote()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>');
+		$(pTitle).append('<a id="deleteNote" type="submit" onclick="deleteNote(this, ' + node.NodeId + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>');
+		$(pTitle).append('<a id="editNote" ng-click="editNote()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>');
 		$(pHeading).append(pTitle);
 
 		var pBody = document.createElement("div");
 		$(pBody).addClass("panel-body");
-		$(pBody).text(node.Text);
+		$(pBody).html(node.Text);
 		$(pBody).append("<br>");
 
 		node.Tags.forEach(function (tag) {
@@ -224,4 +225,7 @@ function search(sender){
 	var term = $(sender).val();
 	$('.label-primary').not(':contains("' + term + '")').parent().parent().hide();
 	$('.label-primary:contains("' + term + '")').parent().parent().show();
+}
+
+function logout(sender){
 }

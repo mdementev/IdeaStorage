@@ -199,7 +199,7 @@ html {
 }
 
 .panel-default{
-  margin-left: 220px;
+  margin-left: 145px;
   margin-right: 41px;
 }
 
@@ -265,10 +265,11 @@ html {
 
 #searchInput{
   position: relative;
-  margin-right: 372px;
+  margin-right: 364px;
   width : 100%;
 }
 
-.container{
-
+.panel-title{
+  font-size: 1.2em;
+  font-weight: bold;
 }
