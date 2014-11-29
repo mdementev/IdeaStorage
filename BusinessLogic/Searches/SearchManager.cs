@@ -11,7 +11,7 @@
 
     using IdeaStorage.EntriesModel.Entries;
 
-    public sealed class SearchManager
+    public sealed class SearchManager: ISearchManager
     {
         public List<Node> FindNodesByValue(string searchTerm, bool caseSensitive = false)
         {
