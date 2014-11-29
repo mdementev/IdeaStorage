@@ -6,6 +6,7 @@
 body {
   padding-top: 51px;
   background-color: transparent;
+
 }
 
 /*
@@ -177,7 +178,8 @@ span{
   border-top-right-radius: 0;
 }
 
-html { 
+html {
+  overflow-y: scroll;
   background-image: url(../img/bg.png); 
   background-repeat: repeat;
   -webkit-background-size: cover;
@@ -211,6 +213,7 @@ html {
 }
 
 #nodeContainer{
+  overflow: auto;
   margin-top: 21px;
 }
 
@@ -249,6 +252,23 @@ html {
 }
 
 #cancelNote{
-  float: right;
   margin-left: 10px;
+}
+
+#editNote{
+  float:right;
+}
+
+#deleteNote{
+  float:right;
+}
+
+#searchInput{
+  position: relative;
+  margin-right: 372px;
+  width : 100%;
+}
+
+.container{
+
 }

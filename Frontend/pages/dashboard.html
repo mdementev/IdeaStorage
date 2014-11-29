@@ -1,17 +1,31 @@
+<div class="container" ui-view="dashboard">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><font size = 5 face="Sail">IdeaStorage</font></a>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <img src="./img/dw.jpg" class="round">
-                <li><button id="newnote"type="button" class="btn btn-primary" ui-sref="newnote"><span class="glyphicon glyphicon-plus"></span>New Note</button></li>
-                <li><a href="#">Welcome back, {{fname}} {{sname}}!</a></li>
+
+
+                <li><form class="navbar-form navbar-left" >
+                    <input onkeyup="search(this)" type="text" id="searchInput" class="form-control" placeholder="Search...">
+
+                </form></li>
+
+                <li><button id="newnote" type="button" class="btn btn-primary" ui-sref="newnote"><span class="glyphicon glyphicon-plus"></span>New Note</button></li>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="newnote" data-toggle="dropdown" aria-expanded="true">Welcome back, {{fname}} {{sname}}!</button>
+                    </div>
+                </li>
+                <li><img src="./img/dw.jpg" class="round"></li>
+
 
             </ul>
         </div>
     </div>
     </div>
 </nav>
+<div class="container">
 <div class="container-fluid">
   <div class="row">      
     <div class="col-sm-3 col-md-2 sidebar">
@@ -24,5 +38,7 @@
     </div>
 </div>
     <div id="nodeContainer">
-    </div>
+            </div>
+</div>
+</div>
 </div>

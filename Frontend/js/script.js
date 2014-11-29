@@ -49,6 +49,36 @@ ideaStorage.controller('loginController', function($scope, $http, $window, $stat
 	}
 });
 
+deleteNote = function(sender, id){
+
+	$(sender).parent().parent().parent().remove();
+
+	var dt = {
+		"Credentials": {
+			"Email": localStorage.getItem("Email"),
+			"Password": localStorage.getItem("Password")
+		},
+		"NodeId": id
+	};
+	$.ajax({
+		type: "POST",
+		url: "http://o142:88/IdeaStorage/DeleteNode",
+		data: dt,
+		//dataType: "json",
+		success: function(data, textStatus, jqxhr) {
+			if (jqxhr.status == 200) {
+				localStorage.setItem('userData', JSON.stringify(data));
+			}
+		},
+		error: function(jqxhr, textStatus, errorThrown){
+			if (jqxhr.status == 401) {
+				$('#alert').show()
+			}
+		}
+
+	});
+};
+
 ideaStorage.controller('dashboardController', function($scope, $http, $window, $state) {
 	var retrievedObject = localStorage.getItem('userData');
 	var obj = JSON.parse(retrievedObject);
@@ -56,22 +86,52 @@ ideaStorage.controller('dashboardController', function($scope, $http, $window, $
 	$scope.sname = obj.SecondName;
 	$scope.nodes = obj.Nodes;
 
+	$scope.searchTerm = function () {
+		var dt = {
+			"Credentials": {
+				"Email": localStorage.getItem("Email"),
+				"Password": localStorage.getItem("Password")
+			},
+			"SearchTerm": $("#searchInput").val()
+		};
+		$.ajax({
+			type: "POST",
+			url: "http://o142:88/IdeaStorage/FindNodeByTag",
+			data: dt,
+			//dataType: "json",
+			success: function (data, textStatus, jqxhr) {
+				if (jqxhr.status == 200) {
+					localStorage.setItem('userData', JSON.stringify(data));
+					$state.go('dashboard');
+				}
+			},
+			error: function (jqxhr, textStatus, errorThrown) {
+				if (jqxhr.status == 401) {
+					$('#alert').show()
+				}
+			}
+
+		});
+	};
+
 	var $nodeContainer = $('#nodeContainer');
 	$scope.nodes.forEach(function (node) {
 
-		var pDefault = document.createElement( "div" );
+		var pDefault = document.createElement("div");
 		$(pDefault).addClass("panel panel-default");
 
-		var pHeading = document.createElement( "div" );
+		var pHeading = document.createElement("div");
 		$(pHeading).addClass("panel-heading");
 		$(pDefault).append(pHeading);
 
-		var pTitle = document.createElement( "h3" );
+		var pTitle = document.createElement("h3");
 		$(pTitle).addClass("panel-title");
-		$(pTitle).html(node.Title);
+		$(pTitle).text(node.Title);
+		$(pTitle).append('<button id="deleteNote" type="submit" onclick="deleteNote(this, ' + node.NodeId + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+		$(pTitle).append('<button id="editNote" ng-click="editNote()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>');
 		$(pHeading).append(pTitle);
 
-		var pBody = document.createElement( "div" );
+		var pBody = document.createElement("div");
 		$(pBody).addClass("panel-body");
 		$(pBody).text(node.Text);
 		$(pBody).append("<br>");
@@ -86,8 +146,9 @@ ideaStorage.controller('dashboardController', function($scope, $http, $window, $
 		$(pDefault).append(pBody);
 
 		$nodeContainer.append(pDefault);
-	});
 
+
+	});
 });
 
 ideaStorage.controller('newnoteController', function($scope, $http, $window, $state) {
@@ -96,7 +157,45 @@ ideaStorage.controller('newnoteController', function($scope, $http, $window, $st
 	$scope.fname = obj.FirstName;
 	$scope.sname = obj.SecondName;
 
+	$scope.createNote = function(){
+		var tags = new Array();
 
+		$("#tags").val().split(',').forEach(function(name){
+			tags.push({"Name": name});
+		});
+
+		var memberfilter = new Array();
+		memberfilter[0] = "Name";
+		var dt = {
+			"Credentials": {
+				"Email": localStorage.getItem("Email"),
+				"Password": localStorage.getItem("Password")
+			},
+			"Node":{
+				"Title": $("#title").val(),
+				"Text": $("#description").val(),
+				"Tags": tags
+			}
+			};
+		$.ajax({
+			type: "POST",
+			url: "http://o142:88/IdeaStorage/CreateNode",
+			data: dt,
+			//dataType: "json",
+			success: function(data, textStatus, jqxhr) {
+				if (jqxhr.status == 200) {
+					localStorage.setItem('userData', JSON.stringify(data));
+					$state.go('dashboard');
+				}
+			},
+			error: function(jqxhr, textStatus, errorThrown){
+				if (jqxhr.status == 401) {
+					$('#alert').show()
+				}
+			}
+
+		});
+	}
 });
 
 
@@ -109,7 +208,6 @@ function getUser(){
 		//dataType: "json",
 		success: function(data, textStatus, jqxhr) {
 			if (jqxhr.status == 200) {
-				alert("Success!");
 				localStorage.setItem('userData', JSON.stringify(data));
 			}
 		},
@@ -120,4 +218,10 @@ function getUser(){
 		}
 
 	});
+}
+
+function search(sender){
+	var term = $(sender).val();
+	$('.label-primary').not(':contains("' + term + '")').parent().parent().hide();
+	$('.label-primary:contains("' + term + '")').parent().parent().show();
 }
