@@ -122,7 +122,7 @@ ideaStorage.controller('dashboardController', function($scope, $http, $window, $
 		$(pDefault).addClass("panel panel-default");
 
 		var pHeading = document.createElement("div");
-		$(pHeading).addClass("panel-heading");
+		$(pHeading).addClass("panel-heading ");
 		$(pDefault).append(pHeading);
 
 		var pTitle = document.createElement("h3");
