@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="Models\LoginCredentials.cs" />
     <Compile Include="Models\NodeModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
