@@ -1,6 +1,7 @@
 ﻿namespace BusinessLogic.Mappers
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using BusinessLogic.EntityManagers;
 
@@ -117,17 +118,19 @@
             }
 
             User model = new User
-                             {
-                                 UserId = user.UserId, 
-                                 Email = user.Email, 
-                                 FirstName = user.FirstName, 
-                                 IsDeleted = user.IsDeleted, 
-                                 SecondName = user.SecondName
-                             };
+            {
+                UserId = user.UserId,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                IsDeleted = user.IsDeleted,
+                SecondName = user.SecondName
+            };
             foreach (NODE node in user.NODES)
             {
                 model.Nodes.Add(node.ToModel());
             }
+
+            model.Nodes = model.Nodes.OrderByDescending(a => a.Modified).ToList();
 
             return model;
         }
