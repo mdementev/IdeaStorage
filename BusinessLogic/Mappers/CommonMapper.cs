@@ -130,7 +130,7 @@
                 model.Nodes.Add(node.ToModel());
             }
 
-            model.Nodes = model.Nodes.OrderByDescending(a => a.Modified).ToList();
+            model.Nodes = model.Nodes.Where(a=>!a.IsDeleted).OrderByDescending(a => a.Modified).ToList();
 
             return model;
         }
